@@ -26,11 +26,9 @@ def call_git_windows(gitUrl):
     # default git path
     path = os.path.join('C:', '\Program Files (x86)', 'Git', 'bin', 'sh.exe')
     tmp = os.open(TEMP_FILE_PATH, os.O_WRONLY|os.O_CREAT)
-    print tmp
     os.write(tmp, ' '.join(['git clone', gitUrl]))
     os.close(tmp)
     cmd = ' '.join([path, '--login', '-i', TEMP_FILE_PATH])
-    print cmd
     subprocess.call(cmd)
     os.remove(TEMP_FILE_PATH)
 
