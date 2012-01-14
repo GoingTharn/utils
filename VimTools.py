@@ -32,7 +32,7 @@ def call_git_windows(gitUrl):
     cmd = ' '.join([path, '--login', '-i', TEMP_FILE_PATH])
     print cmd
     subprocess.call(cmd)
-    #os.remove(TEMP_FILE_PATH)
+    os.remove(TEMP_FILE_PATH)
 
 def vim_load_many(urlList, bundlePath=None):
     for url in urlList:
