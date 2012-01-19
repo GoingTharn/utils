@@ -1,7 +1,8 @@
 import os.path
-import logging as log
+import logging 
 
 def name_changer(path, prefix):
+    log = logging.getLogger('FileRenamer')
     max_inc = get_max_inc(path, prefix)
     for filename in os.listdir(path):
         wn = filename.split('.')
