@@ -13,21 +13,22 @@ def vim_ezadd(gitUrl, bundlePath=None):
     tgt = os.path.expanduser(bundlePath) 
     start_dir = os.getcwd()
     os.chdir(tgt)
+
     if sys.platform == 'win32':
         call_git_windows(gitUrl)
-        os.chdir(start_dir)
     else:
         cmd = ' '.join(['git clone', gitUrl]).split()
         subprocess.call(cmd)
-        os.chdir(start_dir)
+
+    os.chdir(start_dir)
     
 def call_git_windows(gitUrl):
     TEMP_FILE_PATH = os.path.expanduser('~\\vimfiles\\temp_sh.sh')
     # default git path
     path = os.path.join('C:', '\Program Files (x86)', 'Git', 'bin', 'sh.exe')
-    tmp = os.open(TEMP_FILE_PATH, os.O_WRONLY|os.O_CREAT)
-    os.write(tmp, ' '.join(['git clone', gitUrl]))
-    os.close(tmp)
+    with open(TEMP_FILE_PATH, 'wb') as tempfile:
+        shell_cmd  = ' '.join(['git clone', gitUrl])
+        tempfile.write(shell_cmd)
     cmd = ' '.join([path, '--login', '-i', TEMP_FILE_PATH])
     subprocess.call(cmd)
     os.remove(TEMP_FILE_PATH)
