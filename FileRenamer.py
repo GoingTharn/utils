@@ -19,7 +19,7 @@ def get_max_inc(mypath, prefix):
     for filename in os.listdir(mypath):
         wn = filename.split('.')
         if wn[0].startswith(prefix):
-            this_inc = int(wn[0][6:])
+            this_inc = int(wn[0][len(prefix):])
             if this_inc > max_inc:
                 max_inc = this_inc
     return max_inc
